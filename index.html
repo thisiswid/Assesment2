@@ -65,6 +65,7 @@
                 <th>Username</th>
                 <th>Nama</th>
                 <th>Email</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -89,8 +90,29 @@
                             '<td>' + user.Username + '</td>' +
                             '<td>' + user.Nama + '</td>' +
                             '<td>' + user.Email + '</td>' +
+                            '<td><button class="deleteUser" data-id="' + user.User_ID + '">Hapus</button></td>' + 
                             '</tr>'
                         );
+                    });
+
+                     
+                      $('.deleteUser').click(function() {
+                        var userID = $(this).data('id'); 
+                        if (confirm("Apakah Anda yakin ingin menghapus pengguna ini?")) { 
+                            $.ajax({
+                                url: 'delete_user.php', 
+                                type: 'GET', 
+                                data: { id: userID },
+                                success: function(response) {
+                                    alert('Pengguna berhasil dihapus.');
+                                    
+                                    $('#loadData').click();
+                                },
+                                error: function(xhr, status, error) { 
+                                    alert('Gagal menghapus pengguna: ' + error);
+                                }
+                            });
+                        }
                     });
                 },
                 error: function(xhr, status, error) { // Jika permintaan gagal
