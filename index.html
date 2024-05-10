@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AJAX dan JSON</title>
+    <title>AJAX dan Tabel</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
@@ -10,8 +10,6 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            justify-content: center;
-            height: 100vh; 
         }
 
         h1 {
@@ -33,13 +31,26 @@
             background-color: #0056b3;
         }
 
-        pre {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border: 1px solid #ddd;
-            text-align: left;
-            overflow: auto;
-            max-height: 300px; 
+        table {
+            border-collapse: collapse; 
+            width: 80%; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2; 
+            color: #333; 
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; 
         }
     </style>
 </head>
@@ -47,20 +58,40 @@
     <h1>Data Pengguna</h1>
     <button id="loadData">Muat Data Pengguna</button> <!-- Tombol untuk memicu AJAX -->
     
-    <div>
-        <pre id="jsonOutput">Klik tombol di atas untuk memuat data.</pre> <!-- Tempat untuk menampilkan JSON -->
-    </div>
+    <table id="userTable"> 
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Nama</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data dari AJAX akan dimasukkan di sini -->
+        </tbody>
+    </table>
 
     <script>
     $(document).ready(function() {
-        $('#loadData').click(function() { 
+        $('#loadData').click(function() {
             $.ajax({
                 url: 'index.php', // Skrip PHP untuk mendapatkan data
                 type: 'GET',
-                dataType: 'json', 
+                dataType: 'json', // Respons diharapkan dalam format JSON
                 success: function(data) { 
-                    
-                    $('#jsonOutput').text(JSON.stringify(data, null, 2)); 
+                    $('#userTable tbody').empty(); 
+
+                    data.forEach(function(user) { 
+                        $('#userTable tbody').append(
+                            '<tr>' +
+                            '<td>' + user.User_ID + '</td>' +
+                            '<td>' + user.Username + '</td>' +
+                            '<td>' + user.Nama + '</td>' +
+                            '<td>' + user.Email + '</td>' +
+                            '</tr>'
+                        );
+                    });
                 },
                 error: function(xhr, status, error) { // Jika permintaan gagal
                     alert('Gagal memuat data: ' + error);
