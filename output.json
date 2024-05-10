@@ -1,0 +1,26 @@
+[
+    {
+        "User_ID": 2,
+        "Username": "okt",
+        "Nama": "Oktavia",
+        "Email": "oktavia@gmail.com"
+    },
+    {
+        "User_ID": 3,
+        "Username": "ryuu",
+        "Nama": "RyuuK",
+        "Email": "ryuuk@gmail.com"
+    },
+    {
+        "User_ID": 4,
+        "Username": "wid",
+        "Nama": "Widiya ",
+        "Email": "widiya@gmail.com"
+    },
+    {
+        "User_ID": 5,
+        "Username": "ben",
+        "Nama": "Beni",
+        "Email": "Beni@gmail.com"
+    }
+]
